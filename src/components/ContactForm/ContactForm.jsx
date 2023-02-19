@@ -7,7 +7,16 @@ import * as Yup from 'yup';
 import { Label, Button } from './ContactForm.styled';
 
 const Input = styled(Field)`
-  margin-right: 10px;
+  width: 200px;
+  height: 20px;
+  border-radius: 10px;
+  border-style: solid;
+`;
+const AddContactForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `;
 const nameInputId = nanoid();
 const numberInputId = nanoid();
@@ -48,7 +57,7 @@ function ContactForm({ onSubmit }) {
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
-      <Form>
+      <AddContactForm>
         <Label htmlFor={nameInputId}>Name</Label>
         <Input type="text" name="name" id={nameInputId} />
         <ErrorMessage name="name" render={msg => alert(msg)} />
@@ -56,7 +65,7 @@ function ContactForm({ onSubmit }) {
         <Input type="tel" name="number" id={numberInputId} />
         <ErrorMessage name="number" render={msg => alert(msg)} />
         <Button type="submit">Add contact</Button>
-      </Form>
+      </AddContactForm>
     </Formik>
   );
 }

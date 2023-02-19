@@ -5,3 +5,4 @@ export const Wrapper = styled.div`
   margin-right: auto;
   margin-left: auto;
 `;
+export const Button = styled.div``;

@@ -4,17 +4,44 @@ import ContactForm from '../ContactForm';
 import Filter from '../Filter';
 import ContactList from '../ContactsList';
 import { Wrapper } from './App.styled';
+import Modal from 'components/Modal';
+import { Button } from '../ContactForm/ContactForm.styled';
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
+    showModal: false,
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+    if (
+      this.state.contacts.length > prevState.contacts.length &&
+      prevState.contacts.length
+    ) {
+      this.toggleModal();
+    }
+  }
+
+  componentDidMount() {
+    if (
+      localStorage.getItem('contacts') &&
+      JSON.parse(localStorage.getItem('contacts')).length
+    ) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('contacts')),
+      });
+    }
+  }
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
   filterChangeHandler = event => {
     this.setState({ filter: event.target.value });
   };
@@ -28,6 +55,7 @@ class App extends Component {
       this.setState(prevState => {
         return { contacts: [...prevState.contacts, newContact] };
       });
+    
     }
   };
   deleteContactHandler = event => {
@@ -36,6 +64,7 @@ class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
+
   render() {
     const lowerCaseFilter = this.state.filter.toLowerCase();
     const filteredContacts = this.state.contacts.filter(contact =>
@@ -45,7 +74,15 @@ class App extends Component {
     return (
       <Wrapper>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.formSubmitHandler} />
+        <Button type="submit" onClick={this.toggleModal}>
+          Add Contact
+        </Button>
+        {this.state.showModal && (
+          <Modal onClose={this.toggleModal}>
+            <ContactForm onSubmit={this.formSubmitHandler} />
+          </Modal>
+        )}
+
         <h2>Contacts</h2>
         <Filter value={this.state.filter} onChange={this.filterChangeHandler} />
         <ContactList

@@ -20,7 +20,7 @@ class App extends Component {
     }
     if (
       this.state.contacts.length > prevState.contacts.length &&
-      prevState.contacts.length
+      prevState.contacts.length !== 1
     ) {
       this.toggleModal();
     }
@@ -55,7 +55,6 @@ class App extends Component {
       this.setState(prevState => {
         return { contacts: [...prevState.contacts, newContact] };
       });
-    
     }
   };
   deleteContactHandler = event => {

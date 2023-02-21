@@ -23,6 +23,7 @@ class App extends Component {
       prevState.contacts.length !== 1
     ) {
       this.toggleModal();
+      console.log(null == 0);
     }
   }
 

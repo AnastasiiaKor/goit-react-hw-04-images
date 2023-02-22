@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { ModalEl, Backdrop } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
+
 class Modal extends Component {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
@@ -29,9 +29,11 @@ class Modal extends Component {
 
   render() {
     return createPortal(
-      <Backdrop onClick={this.handleBackdropClick}>
-        <ModalEl>{this.props.children}</ModalEl>
-      </Backdrop>,
+      <div class="overlay">
+        <div class="modal">
+          <img src="" alt="" />
+        </div>
+      </div>,
       modalRoot
     );
   }

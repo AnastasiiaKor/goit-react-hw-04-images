@@ -5,5 +5,5 @@ export async function getPictures(value, page = 1) {
   const BASE_URL = `https://pixabay.com/api/?key=${KEY}&q=${value}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`;
 
   const response = await axios(BASE_URL);
-  return response.data.hits;
+  return response.data;
 }

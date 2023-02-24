@@ -2,24 +2,27 @@ import Searchbar from 'components/Searchbar';
 import ImageGallery from 'components/ImageGallery';
 import { Component } from 'react';
 import css from '../App/App.module.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
-    value: '',
+    request: '',
   };
 
-  formSubmitHandler = value => {
+  formSubmitHandler = request => {
     this.setState({
-      value,
+      request,
     });
   };
 
   render() {
-    const { value } = this.state;
+    const { request } = this.state;
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={value => this.formSubmitHandler(value)} />
-        <ImageGallery value={value} />
+        <Searchbar onSubmit={request => this.formSubmitHandler(request)} />
+        <ImageGallery value={request} />
+        <ToastContainer />
       </div>
     );
   }

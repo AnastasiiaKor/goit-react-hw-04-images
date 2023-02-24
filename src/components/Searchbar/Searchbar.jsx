@@ -5,7 +5,7 @@ import { CiSearch } from 'react-icons/ci';
 
 class Searchbar extends Component {
   state = {
-    value: '',
+    request: '',
   };
 
   static propTypes = {
@@ -14,25 +14,25 @@ class Searchbar extends Component {
 
   inputHandler = event => {
     this.setState({
-      value: event.currentTarget.value,
+      request: event.currentTarget.value,
     });
   };
   submitHandler = event => {
     const { onSubmit } = this.props;
-    const { value } = this.state;
+    const { request } = this.state;
     event.preventDefault();
-    onSubmit(value);
+    onSubmit(request);
   };
 
   render() {
-    const { value } = this.state;
+    const { request } = this.state;
     return (
       <header className={css.Searchbar}>
         <form className={css.SearchForm} onSubmit={this.submitHandler}>
           <button
             type="submit"
             className={css.SearchForm_button}
-            disabled={value ? false : true}
+            disabled={request ? false : true}
           >
             <CiSearch style={{ width: 35, height: 35 }} />
             <span className={css.SearchForm_button_label}>Search</span>
@@ -44,7 +44,8 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={value}
+            value={request}
+            name="request"
             onChange={this.inputHandler}
           />
         </form>

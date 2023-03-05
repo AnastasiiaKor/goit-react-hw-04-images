@@ -45,7 +45,7 @@ function App() {
 
         if (pictures.length) {
           setShowButton(true);
-          setItems([...items, ...pictures]);
+          setItems(items => [...items, ...pictures]);
           return;
         }
         toast.error('There are no images for your request');
@@ -58,7 +58,6 @@ function App() {
     if (request) {
       fetch(request, page);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, request]);
 
   useEffect(() => {
